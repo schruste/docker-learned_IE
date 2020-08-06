@@ -28,6 +28,5 @@ RUN python3 setup.py install --user
 WORKDIR /home/app/learned_ie   
                                      
 USER ${NB_USER}
-RUN pip3 install --user numpy scipy matplotlib
         
                 
