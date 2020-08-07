@@ -24,9 +24,11 @@ RUN git submodule update --init --recursive
 WORKDIR /home/app/learned_ie/ngs_refsol
 RUN python3 setup.py install --user  
 WORKDIR /home/app/learned_ie/ceres_dtn
-RUN python3 setup.py install --user      
-WORKDIR /home/app/learned_ie   
-                                     
+RUN python3 setup.py install --user
+        
+USER root
+RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
         
+WORKDIR /home/${NB_USER}
                 
