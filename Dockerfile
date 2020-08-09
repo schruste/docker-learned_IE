@@ -8,6 +8,8 @@ RUN apt-get install -y \
   libsuitesparse-dev \
   wget
 
+RUN pip3 install psutil
+        
 WORKDIR /home/app
 RUN wget http://ceres-solver.org/ceres-solver-1.14.0.tar.gz
 RUN tar zxf ceres-solver-1.14.0.tar.gz
