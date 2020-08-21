@@ -21,8 +21,8 @@ RUN make install
 
 WORKDIR /home/app        
 RUN git clone https://gitlab.gwdg.de/learned_infinite_elements/learned_ie
-RUN git pull origin master
 WORKDIR /home/app/learned_ie
+RUN git pull origin master
 RUN git submodule update --init --recursive  
 WORKDIR /home/app/learned_ie/ngs_refsol
 RUN python3 setup.py install --user  
