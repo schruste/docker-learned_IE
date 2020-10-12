@@ -8,7 +8,7 @@ RUN apt-get install -y \
   libsuitesparse-dev \
   wget
 
-RUN pip3 install psutil mpmath cxroots
+RUN pip3 install psutil mpmath
         
 WORKDIR /home/app
 RUN wget http://ceres-solver.org/ceres-solver-1.14.0.tar.gz
@@ -27,6 +27,8 @@ RUN git submodule update --init --recursive
 WORKDIR /home/app/learned_ie/ngs_refsol
 RUN python3 setup.py install --user  
 WORKDIR /home/app/learned_ie/ceres_dtn
+RUN python3 setup.py install --user
+WORKDIR /home/app/learned_ie/pole_finder
 RUN python3 setup.py install --user
         
 USER root
