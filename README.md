@@ -19,14 +19,14 @@ contact <preussj@mps.mpg.de> in case of problems.
 * Please install the `docker` platform for your distribution as described [here](https://docs.docker.com/get-docker/).
 * After installation the `Docker daemon` has to be started. This can either be done on boot or manually. In most Linux 
 distribution the command for the latter is either `systemctl start docker` or `service docker start`.
-* Pull the docker image for learned IEs using the command `docker pull schruste/learned_ie:v20201021`. 
-* Run the image with `docker run -it schruste/learned_ie bash`. 
+* Pull the docker image for learned IEs using the command `docker pull schruste/learned_ie:20201021v`. 
+* Run the image with `docker run -it schruste/learned_ie:20201021v bash`. 
 * Proceed further as described in [How to reproduce](#repro).
 
 ## Downloading the docker image from zenodo 
 * For this option the first two steps are the same as above. 
 * Assuming that `learnedIE_reproduction.tar` is the filename of the downloaded image, please load the image with `docker load < learnedIE_reproduction.tar`.
-* Run the image with `docker run -it schruste/learned_ie bash`. 
+* Run the image with `docker run -it schruste/learned_ie:20201021v bash`.
 * Proceed further as described in [How to reproduce](#repro).
 
 ## Manual installation 
