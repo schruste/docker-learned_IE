@@ -19,14 +19,14 @@ contact <preussj@mps.mpg.de> in case of problems.
 * Please install the `docker` platform for your distribution as described [here](https://docs.docker.com/get-docker/).
 * After installation the `Docker daemon` has to be started. This can either be done on boot or manually. In most Linux 
 distribution the command for the latter is either `systemctl start docker` or `service docker start`.
-* Pull the docker image for learned IEs using the command `docker pull schruste/learned_ie:20201021v`. 
-* Run the image with `docker run -it schruste/learned_ie:20201021v bash`. 
+* Pull the docker image for learned IEs using the command `docker pull schruste/learned_ie:20201022`. 
+* Run the image with `docker run -it schruste/learned_ie:20201022 bash`. 
 * Proceed further as described in [How to reproduce](#repro).
 
 ## Downloading the docker image from zenodo 
 * For this option the first two steps are the same as above. 
 * Assuming that `learnedIE_reproduction.tar` is the filename of the downloaded image, please load the image with `docker load < learnedIE_reproduction.tar`.
-* Run the image with `docker run -it schruste/learned_ie:20201021v bash`.
+* Run the image with `docker run -it schruste/learned_ie:20201022 bash`.
 * Proceed further as described in [How to reproduce](#repro).
 
 ## Manual installation 
@@ -167,7 +167,8 @@ Change to the directory `scripts/6_4_waveguide`. Run the file `python3 waveguide
 Change to the directory `scripts/6_5_VALC`. 
 
 * The data for Fig.2 (except the inset of (b)) is obtained by running `python3 VALC-coeff-plot.py`. Two files will be produced. 
-The file `c-rho-VALC.dat` contains the data for sound speed and density in the columns `cV` and `rhoV` respectively at radial coordinate `r` (first column). 
+The file `c-rho-VALC.dat` contains the data for sound speed and density of the VAL-C model in the columns `cV` and `rhoV` respectively at radial coordinate `r` (first column).
+The columns `cA` and `rhoA` correspond to a sound speed and density of a simplified atmospheric model shown as dashed lines in Figure 2 (a).
 The data for the effective potential is available in the file *eff-pot-VALC.dat*. The second column contains the real part and the third the imaginary part. 
 * Running `python3 learn-helio.py` yields the data for Fig. 1(d), Fig.10 and the inset of Fig.2 (b).
     * Fig.1(d): The data for the  reference dtn function is available in the file *dtn-VALC-ref-0.007Hz.dat*.
@@ -180,5 +181,3 @@ The data for the effective potential is available in the file *eff-pot-VALC.dat*
     * Fig. 2(b): The data for the real part of the modes shown in the inset is available in the file *VALC-modes-0.007Hz.dat*. The columns are labelled according to the number 
       number, so `l4000` contains the values for mode with number `l=4000`. 
 * The values in Table 1 are output to the terminal while running `python3 integrate_wavelength.py`.
-
-
