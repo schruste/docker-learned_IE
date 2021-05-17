@@ -2,31 +2,37 @@
 This is the github repository used to generate the docker image for the paper "Learned infinite elements: Hohage, Lehrenfeld, Preuss". 
 The same document ist available [here](https://gitlab.gwdg.de/learned_infinite_elements/learned_ie/-/tree/master/reproduction). 
 
-# How to install 
+# How to run / install
 
+We offer a couple of interactive notebooks which can be run live in the browser without the need to install anything:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitlab.gwdg.de%2Flearned_infinite_elements%2Flearned_ie/master?filepath=notebooks%2Foverview.ipynb) (jupyter notebook)
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitlab.gwdg.de%2Flearned_infinite_elements%2Flearned_ie/master?urlpath=lab) (jupyter lab (no ngsolve webgui))
+ 
 We describe two options to setup the software for running the experiments. 
 
-* downloading a `docker image` from `zenodo` or `Docker Hub` which contains all dependencies and tools to run the application,
+* downloading a `docker image` from `GRO.data` or `Docker Hub` which contains all dependencies and tools to run the application,
 * or installing everything manually on your own local machine. 
 
 The first option is quick and convenient while the second option provides higher flexibility. 
 Therefore, we recommend to start with the `docker image`. If you would like to integrate 
 parts of the application into your own code (e.g. coupling the optimization routine for dtn 
 to another FEM library) then eventually you need to go for a manual installation. Please 
-contact <preussj@mps.mpg.de> in case of problems. 
+contact <j.preuss@math.uni-goettingen.de> in case of problems. 
 
 ## Pulling the docker image from Docker Hub 
 * Please install the `docker` platform for your distribution as described [here](https://docs.docker.com/get-docker/).
 * After installation the `Docker daemon` has to be started. This can either be done on boot or manually. In most Linux 
 distribution the command for the latter is either `systemctl start docker` or `service docker start`.
-* Pull the docker image for learned IEs using the command `docker pull schruste/learned_ie:20201215`. 
-* Run the image with `docker run -it schruste/learned_ie:20201215 bash`. 
+* Pull the docker image for learned IEs using the command `docker pull schruste/learned_ie:20210517`. 
+* Run the image with `docker run -it schruste/learned_ie:20210517 bash`. 
 * Proceed further as described in [How to reproduce](#repro).
 
-## Downloading the docker image from zenodo 
+## Downloading the docker image from GRO.data 
 * For this option the first two steps are the same as above. 
 * Assuming that `learnedIE_reproduction.tar` is the filename of the downloaded image, please load the image with `docker load < learnedIE_reproduction.tar`.
-* Run the image with `docker run -it schruste/learned_ie:20201215 bash`.
+* Run the image with `docker run -it schruste/learned_ie:20210517 bash`.
 * Proceed further as described in [How to reproduce](#repro).
 
 ## Manual installation 
@@ -41,7 +47,7 @@ Firstly, we need some basic tools. Probably most of these (except for *mpmath*) 
 * [cmake](https://cmake.org/)
 
 We proceed to the more specific software. The components *ngs_refsol*,*ceres_dtn* and *pole_finder* described below
-are submodules of the gitlab repository [learned_IE](https://gitlab.gwdg.de/learned_infinite_elements/learned_ie), which can be obtained by 
+are submodules of the gitlab repository [learned_IE](https://gitlab.gwdg.de/learned_infinite_elements/learned_ie), which can be obtained by
 
 ```git clone https://gitlab.gwdg.de/learned_infinite_elements/learned_ie.git```. 
 
@@ -66,6 +72,7 @@ The main tools are:
 
 # <a name="repro"></a> How to reproduce 
 
+Please switch into the folder `reproduction`.
 The scripts for reproducing the experiments are located in subfolders of the folder `scripts`. The subfolders 
 are labelled according to the corresponding sections of the paper. The scripts are run with the command 
 `python3 scriptname.py `. While running the scripts the data for reproducing the results of the paper will usually be written to 
@@ -94,11 +101,11 @@ The analytic poles follow after the output *analytic poles*.
 Change to the directory `scripts/6_1_plane_wave`.
 
 ### Fig. 5
-* Run the experiment using `python3 plane_wave.py`. Afterwards the data for Fig. 5 (a) will be available in the file *plane-wave-omega16.dat*. 
+* Run the experiment using `python3 plane_wave.py`. Afterwards the data for Fig. 5 (a) will be available in the file *plane-wave-k16.dat*. 
 The first column `N` is the number of infinite element degrees of freedom in radial direction. The next columns give the polynomial degree of 
-the finite elements, so *p__k__* means order=__k__. The table contains the relative L^2-error on the computational domain. 
+the finite elements, so *p__j__* means order=__j__. The table contains the relative L^2-error on the computational domain. 
 * The file *plane-wave-p10.dat* contains the data for Fig. 5 (b). The columns are self-explanatorily labelled according to the different wavenumbers.
-* The data for the plot of the reference solution shown in the inset is available in the file `plane-wave-omega16.vtk`. 
+* The data for the plot of the reference solution shown in the inset is available in the file `plane-wave-k16.vtk`. 
 
 ### Fig. 6
 * Run the experiment using `python3 plane_wave_decrease_coupling_radius.py`. 
@@ -132,9 +139,9 @@ in the same way as above for the learned IE.
 
 ## 6.3 Jump in exterior wave speed (Fig. 1(a,b) and Fig. 8)
 
-Change to the directory `scripts/6_3_jump_wavespeed`. Run `python3 jump.py`. Several files called *jump-dtn-omegainf__x__-__y__.dat* are created, where 
+Change to the directory `scripts/6_3_jump_wavespeed`. Run `python3 jump.py`. Several files called *jump-dtn-kinf__x__-__y__.dat* are created, where 
 
-* The variavle __x__ denote the value of the wavenumber omega infinity, e.g. __x__ = __8__.
+* The variavle __x__ denote the value of the wavenumber k infinity, e.g. __x__ = __8__.
 * The variable __y__ describes if the file contains the results for the __real__ or the __imaginary__ part of the dtn approximation. In the main paper only the real part is considered.
 
 The tables in all the files follow the same structure: 
@@ -145,22 +152,22 @@ The tables in all the files follow the same structure:
 * The next columns labelled as *N__x__* give the approximation with the learned infinite elements with __x__ degrees of freedom.
 
 The analytic (Fig. 1(a,b)) and learned poles (Fig.1(a,b) and Fig.8) of dtn are output to the terminal while running the script. 
-Moreover, the data for creating the plots of the solution with learned infinite elements using `N=6` is available in the created files 
-*jump-learned-omega_inf__x__-N6.vtk*.
+
+The relative L^2-eror for the scattering of a plane wave is available in the file *jump-l2_relerr.dat*. The first column `N` is as above. The other columns labelled as `kInf__x__` contain the results for the respective wavenumbers k infinity, e.g. __x__  = __8__. Moreover, the data for creating the plot of the reference solution shown in the inset of Fig. 8 c) is available in *jump-sol-k_inf8.vtk*. 
 
 ## 6.4 Waveguide (Fig.1 (c ) and Fig. 9) 
 
 Change to the directory `scripts/6_4_waveguide`. Run the file `python3 waveguide.py`.
 
-* Fig.1(c ): The real and imaginary part for the dtn are available in the files *waveguide-dtn-omega16.5-real.dat* and *waveguide-dtn-omega16.5-imag.dat* respectively. 
+* Fig.1(c ): The real and imaginary part for dtn are available in the files *waveguide-dtn-k16.5-real.dat* and *waveguide-dtn-k16.5-imag.dat* respectively. 
   The first column `lam` contains the sample points and the second column the values of dtn. 
-* Fig.9(a): The dtn approximation with learned IEs is also contained in the file `waveguide-dtn-omega16.5-imag.dat`. 
-  Column *N__k__* contain the results for __k__ infinite elements degrees of freedom. The values of the reference dtn at the eigenvalues (black crosses) 
-  are given in the file *waveguide-dtn-omega16.5-interp.dat*. The second column contains the values of the real part and the third the values for the imaginary part.
+* Fig.9(a): The dtn approximation with learned IEs is also contained in the file `waveguide-dtn-k16.5-imag.dat`. 
+  Column *N__j__* contain the results for __j__ infinite elements degrees of freedom. The values of the reference dtn at the eigenvalues (black crosses) 
+  are given in the file *waveguide-dtn-k16.5-interp.dat*. The second column contains the values of the real part and the third the values for the imaginary part.
   The location of the learned poles is output to the terminal while running the script. 
-* Fig.9(b): The file `waveguide-omega16.5.dat` contains the relative L^2-error. The first column gives the number `N` of infinite element dofs.
-  The next columns give the results for different polynomial degrees of the finite elements, so *p__k__* means order=__k__. The file 
-  *waveguide-refsol-omega16.5.vtk* contains the data for the plot of the sample solution shown in the inset.  
+* Fig.9(b): The file `waveguide-k16.5.dat` contains the relative L^2-error. The first column gives the number `N` of infinite element dofs.
+  The next columns give the results for different polynomial degrees of the finite elements, so *p__j__* means order=__j__. The file 
+  *waveguide-refsol-k16.5.vtk* contains the data for the plot of the sample solution shown in the inset.  
 
 ## 6.5 VAL-C model (Fig.1(d), Fig.2, Fig. 10 and Table 1) 
 
